@@ -142,8 +142,6 @@ namespace
         }
         break;
       }
-        
-
       case BinaryOp::Remain:
         V = Builder.CreateSRem(Left, Right);
         break;

@@ -39,6 +39,7 @@ public:
         colon,        // added
         loop,         // added
         comma,
+        remain, // added
         semicolon,
         plus,
         minus,

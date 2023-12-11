@@ -338,15 +338,15 @@ Expr *Parser::parseExpr5()
 Expr *Parser::parseExpr6()
 {
     Expr *Left = parseTerm();
-    while (Tok.isOneOf(Token::star, Token::slash, Token::Remain))
+    while (Tok.isOneOf(Token::star, Token::slash, Token::remain))
     {
         BinaryOp::Operator Op;
         if(Tok.is(Token::star))
             Op = BinaryOp::Mul;
         else if(Tok.is(Token::slash))
             Op = BinaryOp::Div;
-        else if(Tok.is(Token::Remain))
-            Op = BinaryOp::Remain; // new 
+        else if(Tok.is(Token::remain))
+            Op = BinaryOp::remain; // new 
 
         advance();
         Expr *Right = parseTerm();
