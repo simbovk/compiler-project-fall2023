@@ -121,6 +121,7 @@ void Lexer::next(Token &token)
             CASE('-', Token::minus);
             CASE('*', Token::star);
             CASE('/', Token::slash);
+            CASE('%', Token::slash); // new 
             CASE('(', Token::l_paren);
             CASE(')', Token::r_paren);
             CASE(';', Token::semicolon);
