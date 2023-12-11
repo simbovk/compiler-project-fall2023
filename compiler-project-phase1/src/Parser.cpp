@@ -244,7 +244,6 @@ Expr *Parser::parseLoop()
 _error5: // TODO: Check this later in case of error :)
     while (Tok.getKind() != Token::eoi)
         advance();
-    llvm::errs() << "sydney the best" << "\n";
     return nullptr;
 }
 
