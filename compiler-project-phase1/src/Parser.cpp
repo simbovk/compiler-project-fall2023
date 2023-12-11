@@ -253,6 +253,10 @@ Expr *Parser::parseAssign()
 
     advance();
     E = parseExpr();
+    if(expect(Token::semicolon)) // new
+        error();
+        return nullptr;
+    advance();
     return new Assignment(F, E);
 }
 
