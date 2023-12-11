@@ -189,7 +189,7 @@ namespace
         // Create an alloca instruction to allocate memory for the variable.
         nameMap[Var] = Builder.CreateAlloca(Int32Ty);
 
-        if (*e_I)
+        if (e_I) // star or not ? 
         {
           (*e_I)->accept(*this);
 
