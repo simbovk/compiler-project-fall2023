@@ -62,7 +62,7 @@ void Lexer::next(Token &token)
             kind = Token::begin; // added
         else if (Name == "end")
             kind = Token::end; // added
-        else if (Name == "loop")
+        else if (Name == "loopc")
             kind = Token::loop; // added
         else
             kind = Token::ident;
