@@ -122,7 +122,7 @@ Expr *Parser::parseDec()
             else
                 goto _error;
         }
-        if(count_exprs > countIdentifiers){
+        if(countExprs > countIdentifiers){
                 goto _error;
         }
     }
