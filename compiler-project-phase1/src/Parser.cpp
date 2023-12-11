@@ -108,7 +108,7 @@ Expr *Parser::parseDec()
         else
             goto _error;
 
-        while (countExprs >= countIdentifiers && Tok.is(Token::comma))
+        while (countExprs <= countIdentifiers && Tok.is(Token::comma))
         {
             advance();
             E = parseExpr();
@@ -116,6 +116,7 @@ Expr *Parser::parseDec()
             {
                 Numbers.push_back(E);
                 countExprs++;
+                llvm::errs() << "countExprs: " << countExprs << "countIdents: " << countIdentifiers;
             }
             else
                 goto _error;

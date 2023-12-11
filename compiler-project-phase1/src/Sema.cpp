@@ -82,34 +82,33 @@ namespace
       }
     };
 
-    virtual void visit(Assignment &node) override{}
     virtual void visit(Condition &node) override{}
     virtual void visit(Loop &node) override{}
     virtual void visit(BE &node) override{}
 
-    // Visit function for Assignment nodes
-    // virtual void visit(Assignment &Node) override
-    // {
-    //   Factor *dest = Node.getLeft();
+    Visit function for Assignment nodes
+    virtual void visit(Assignment &Node) override
+    {
+      Factor *dest = Node.getLeft();
 
-    //   dest->accept(*this);
+      dest->accept(*this);
 
-    //   if (dest->getKind() == Factor::Number)
-    //   {
-    //     llvm::errs() << "Assignment destination must be an identifier.";
-    //     HasError = true;
-    //   }
+      if (dest->getKind() == Factor::Number)
+      {
+        llvm::errs() << "Assignment destination must be an identifier.";
+        HasError = true;
+      }
 
-    // if (dest->getKind() == Factor::Ident)
-    // {
-    //   // Check if the identifier is in the scope
-    //   if (Scope.find(dest->getVal()) == Scope.end())
-    //     error(Not, dest->getVal());
-    // }
+    if (dest->getKind() == Factor::Ident)
+    {
+      // Check if the identifier is in the scope
+      if (Scope.find(dest->getVal()) == Scope.end())
+        error(Not, dest->getVal());
+    }
 
-    //   if (Node.getRight())
-    //     Node.getRight()->accept(*this);
-    // };
+      if (Node.getRight())
+        Node.getRight()->accept(*this);
+    };
 
     virtual void visit(Declaration &Node) override
     {
