@@ -234,7 +234,7 @@ Expr *Parser::parseLoop()
     E = parseExpr();
 
     if (expect(Token::colon))
-        goto errors;
+        goto error5;
     advance();
 
     B = (BE *)(parseBE());
