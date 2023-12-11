@@ -238,7 +238,7 @@ Expr *Parser::parseLoop()
     advance();
 
     B = (BE *)(parseBE());
-
+    llvm:: errs() << "sherover";
     return new Loop(E, B);
 _error5: // TODO: Check this later in case of error :)
     while (Tok.getKind() != Token::eoi)
