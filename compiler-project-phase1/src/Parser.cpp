@@ -116,7 +116,7 @@ Expr *Parser::parseDec()
             {
                 Numbers.push_back(E);
                 countExprs++;
-                llvm::errs() << "countExprs: " << countExprs << "countIdents: " << countIdentifiers << '\n' << Numbers.begin_values.getVal();
+                llvm::errs() << "countExprs: " << countExprs << "countIdents: " << countIdentifiers << '\n' << Numbers.end_values().getVal();
             }
             else
                 goto _error;
