@@ -207,8 +207,8 @@ namespace
       {
         if (*I)
         {
-
-          (Assignment *)I->accept(*this);
+          Assignment *casted_I = (Assignment *)I;
+          casted_I->accept(*this);
         }
       }
     };
@@ -268,7 +268,7 @@ namespace
       }
       if (count_bes + 1 == count_exprs && !flag_has_been_true)
       {
-        (*Node.bes_end())->accept(this *);
+        (*Node).bes_end())->accept(this *);
       }
     };
   };
