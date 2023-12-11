@@ -132,7 +132,7 @@ namespace
         if (f && f->getKind() == Factor::ValueKind::Number){
           int right_value_as_int;
           f->getVal().getAsInteger(10, right_value_as_int);
-          llvm::errs() << f->getVal().getAsInteger(10, right_value_as_int)
+          std::cout << f->getVal().getAsInteger(10, right_value_as_int)
              << " :: " << f->getVal();
           if(right_value_as_int == 0)
             V = ConstantInt::get(Int32Ty, 1, true);
