@@ -418,7 +418,8 @@ Expr *Parser::parseBE()
     {
         E = (Assignment *)parseAssign();
         Factor *f = E->getLeft();
-        llvm::errs() << f->getVal();
+        Factor *t = (Factor *)E->getRight();
+        llvm::errs() << f->getVal() << " " << t->getVal();
         if (E)
         {
             assigns.push_back(E);
