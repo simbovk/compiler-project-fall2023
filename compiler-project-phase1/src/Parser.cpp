@@ -242,7 +242,7 @@ Expr *Parser::parseAssign()
 {
     Expr *E;
     Factor *F;
-    F = (Factor *)(parseFactor()); // why factor not identify
+    F = (Factor *)(parseFactor());
 
     if (!Tok.is(Token::equal) && !Tok.is(Token::plus_equal) && !Tok.is(Token::minus_equal) &&
         !Tok.is(Token::remain_equal) && !Tok.is(Token::mult_equal) && !Tok.is(Token::div_equal))
@@ -417,6 +417,8 @@ Expr *Parser::parseBE()
     while (Tok.is(Token::ident))
     {
         E = parseAssign();
+        Factor *f = (Factor *)E.getLeft();
+        llvm::errs() << f->getVal();
         if (E)
         {
             assigns.push_back(E);
