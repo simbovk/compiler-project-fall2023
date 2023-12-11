@@ -108,7 +108,7 @@ Expr *Parser::parseDec()
         else
             goto _error;
 
-        while (countExprs <= countIdentifiers && Tok.is(Token::comma))
+        while (countExprs >= countIdentifiers && Tok.is(Token::comma))
         {
             advance();
             E = parseExpr();
