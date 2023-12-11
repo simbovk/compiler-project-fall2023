@@ -229,9 +229,10 @@ namespace
       {
         Node.getExpr()->accept(*this);
         val = V;
-
         while (val)
         {
+          Node.getExpr()->accept(*this);
+          val = V;
           be->accept(*this);
         }
       }
