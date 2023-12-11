@@ -49,6 +49,7 @@ class Parser
     Expr *parseExpr3();
     Expr *parseExpr4();
     Expr *parseExpr5();
+    Expr *parseExpr6();
     Expr *parseTerm();
     Expr *parseFactor();
     Expr *parseLoop();

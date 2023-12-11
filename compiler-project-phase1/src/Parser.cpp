@@ -262,7 +262,7 @@ Expr *Parser::parseExpr()
         Expr *Right = parseExpr1();
         Left = new BinaryOp(Op, Left, Right);
     }
-    return Left
+    return Left;
 }
 
 Expr *Parser::parseExpr1()
