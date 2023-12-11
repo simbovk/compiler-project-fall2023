@@ -236,6 +236,7 @@ namespace
 
       // Our code
 
+      Value *val = nullptr;
       int count_exprs = 0;
       int count_bes = 0;
       bool flag_has_been_true = false;
@@ -247,9 +248,10 @@ namespace
       {
         count_bes++;
       }
-
+      
       for (auto I = Node.exprs_begin(), E = Node.exprs_begin(), bes_I = Node.bes_begin(), bes_E = Node.bes_end(); I != E; ++I, ++bes_I)
       {
+
         if (*I)
         {
           (*I)->accept(*this);
