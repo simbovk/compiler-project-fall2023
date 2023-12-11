@@ -230,7 +230,7 @@ namespace
         Node.getExpr()->accept(*this);
         val = V;
 
-        if (val)
+        while (val)
         {
           be->accept(*this);
         }
