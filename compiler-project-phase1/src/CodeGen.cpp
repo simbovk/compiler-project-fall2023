@@ -198,7 +198,7 @@ namespace
         }
         else
         {
-          Builder.CreateStore(0, nameMap[Var]);
+          Builder.CreateStore(Int32Zero, nameMap[Var]);
         }
       }
     };
