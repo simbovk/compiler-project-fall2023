@@ -127,6 +127,7 @@ void Lexer::next(Token &token)
             CASE(';', Token::semicolon);
             CASE(',', Token::comma);
             CASE('=', Token::equal);
+            CASE('^', Token::power);
             // CASE('+=', Token::plus_equal);   // added
             // CASE('-=', Token::minus_equal);  // added
             // CASE('*=', Token::mult_equal);   // added
