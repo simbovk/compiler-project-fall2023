@@ -9,7 +9,6 @@ class AST;
 class Expr;
 class Goal;
 class Factor;
-class Term;
 class Assignment;
 class Declaration;
 class Loop;
