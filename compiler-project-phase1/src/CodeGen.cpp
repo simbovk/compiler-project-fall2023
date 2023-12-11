@@ -127,7 +127,7 @@ namespace
         break;
       case BinaryOp::Power:
         V = Left;
-        Factor* f = (Factor *)Right;
+        Factor *f = (Factor *)Right;
         if (f && f->getKind() == Factor::ValueKind::Number){
           int right_value_as_int;
           f->getVal().getAsInteger(10, right_value_as_int);
@@ -135,7 +135,7 @@ namespace
             V = ConstantInt::get(Int32Ty, 1, true);
           else{
             for(int i = 1;i < right_value_as_int;i++){
-              V = Builder.CreateNSWMul(V, left);
+              V = Builder.CreateNSWMul(V, Left);
             }
           }
         }
