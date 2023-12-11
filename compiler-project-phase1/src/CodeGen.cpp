@@ -126,11 +126,11 @@ namespace
         V = Builder.CreateSDiv(Left, Right);
         break;
       case BinaryOp::Power:
-         V = left;
-        Factor *f = (Factor *)Right;
+        V = Left;
+        Factor* f = (Factor *)Right;
         if (Right && f->getKind() == Factor::ValueKind::Number){
           int right_value_as_int;
-          Right.getVal().getAsInteger(10, right_value_as_int);
+          Right->getVal().getAsInteger(10, right_value_as_int);
           if(right_value_as_int == 0)
             V = ConstantInt::get(Int32Ty, 1, true);
           else{
