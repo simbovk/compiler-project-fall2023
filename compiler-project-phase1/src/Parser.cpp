@@ -354,7 +354,7 @@ Expr *Parser::parseTerm()
     Expr *Left = parseFactor();
     while (Tok.is(Token::power))
     {
-        BinaryOp::Operator Op = Token::power;
+        BinaryOp::Operator Op = BinaryOp::Power;
         advance();
         Expr *Right = parseFactor();
         Left = new BinaryOp(Op, Left, Right);
