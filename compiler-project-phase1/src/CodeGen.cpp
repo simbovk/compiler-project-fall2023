@@ -231,7 +231,6 @@ namespace
         val = V;
         while (val)
         {
-          llvm::errs() << "jerking off with sydney sweeny" << "\n";
           Node.getExpr()->accept(*this);
           val = V;
           be->accept(*this);
