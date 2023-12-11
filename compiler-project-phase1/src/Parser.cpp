@@ -262,14 +262,15 @@ Expr *Parser::parseAssign()
 
     if (expect(Token::semicolon))
         goto _error4;
-    else 
-        advance();
+
+    advance();
+
+    return new Assignment(F, E);
+    
     _error4: // TODO: Check this later in case of error :)
         while (Tok.getKind() != Token::eoi)
             advance();
         return nullptr;
-
-    return new Assignment(F, E);
 }
 
 Expr *Parser::parseExpr()
