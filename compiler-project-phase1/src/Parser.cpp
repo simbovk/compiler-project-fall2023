@@ -26,11 +26,11 @@ AST *Parser::parseGoal()
             Expr *a;
             a = parseAssign();
 
-            if (!Tok.is(Token::semicolon))
-            {
-                error();
-                goto _error2;
-            }
+            // if (!Tok.is(Token::semicolon))
+            // {
+            //     error();
+            //     goto _error2;
+            // }
             if (a)
                 exprs.push_back(a);
             else
@@ -253,6 +253,16 @@ Expr *Parser::parseAssign()
 
     advance();
     E = parseExpr();
+
+    if (expect(Token::semicolon))
+        goto _error4;
+    else 
+        advance();
+    _error4: // TODO: Check this later in case of error :)
+        while (Tok.getKind() != Token::eoi)
+            advance();
+        return nullptr;
+
     return new Assignment(F, E);
 }
 
