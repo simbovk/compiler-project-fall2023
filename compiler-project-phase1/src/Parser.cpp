@@ -228,20 +228,22 @@ Expr *Parser::parseLoop()
     BE *B;
 
     if (expect(Token::loop))
-        error(); // Error error() idk
-        return nullptr;
+        goto _error5;
 
     advance();
     E = parseExpr();
 
     if (expect(Token::colon))
-        error(); // Error error() idk
-        return nullptr;
+        goto errors;
     advance();
 
     B = (BE *)(parseBE());
 
     return new Loop(E, B);
+_error5: // TODO: Check this later in case of error :)
+    while (Tok.getKind() != Token::eoi)
+        advance();
+    return nullptr;
 }
 
 Expr *Parser::parseAssign()
