@@ -3,9 +3,6 @@
 #include "llvm/IR/IRBuilder.h"
 #include "llvm/IR/LLVMContext.h"
 #include "llvm/Support/raw_ostream.h"
-#include <iostream>
-
-using namespace std;
 
 using namespace llvm;
 
@@ -132,11 +129,11 @@ namespace
       {
         V = Left;
         Factor *f = (Factor *)Right;
+        llvm::errs() << f->getVal().getAsInteger(10)
+             << " :: " << f->getVal();
         if (f && f->getKind() == Factor::ValueKind::Number){
           int right_value_as_int;
           f->getVal().getAsInteger(10, right_value_as_int);
-          cout << f->getVal().getAsInteger(10, right_value_as_int)
-             << " :: " << f->getVal();
           if(right_value_as_int == 0)
             V = ConstantInt::get(Int32Ty, 1, true);
           else{
