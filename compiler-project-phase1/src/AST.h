@@ -7,12 +7,6 @@
 // Forward declarations of classes used in the AST
 class AST;
 class Expr;
-class Expr1;
-class Expr2;
-class Expr3;
-class Expr4;
-class Expr5;
-class Expr6;
 class Goal;
 class Factor;
 class Term;
@@ -30,12 +24,6 @@ public:
     // Virtual visit functions for each AST node type
     virtual void visit(AST &) {}           // Visit the base AST node
     virtual void visit(Expr &) {}          // Visit the expression node
-    virtual void visit(Expr1 &) = 0;       // Visit the expression node
-    virtual void visit(Expr2 &) = 0;       // Visit the expression node
-    virtual void visit(Expr3 &) = 0;       // Visit the expression node
-    virtual void visit(Expr4 &) = 0;       // Visit the expression node
-    virtual void visit(Expr5 &) = 0;       // Visit the expression node
-    virtual void visit(Expr6 &) = 0;       // Visit the expression node
     virtual void visit(Goal &) = 0;        // Visit the group of expressions node
     virtual void visit(Factor &) = 0;      // Visit the factor node
     virtual void visit(Term &) = 0;        // Visit the term node
