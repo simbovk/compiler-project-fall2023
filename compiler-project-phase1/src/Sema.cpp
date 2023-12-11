@@ -114,8 +114,11 @@ namespace
         if (!Scope.insert(*I).second)
           error(Twice, *I); // If the insertion fails (element already exists in Scope), report a "Twice" error
       }
-      if (Node.getExpr())
-        Node.getExpr()->accept(*this); // If the Declaration node has an expression, recursively visit the expression node
+
+      for(auto value_I = Node.begin_values(), value_E = Node.end_values(); value_I! value_E, ++value_I){
+        if (*value_I)
+          *value_I->accept(*this); // If the Declaration node has an expression, recursively visit the expression node
+      }
     };
   };
 }
