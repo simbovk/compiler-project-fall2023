@@ -117,9 +117,12 @@ Expr *Parser::parseDec()
                 Numbers.push_back(E);
                 countExprs++;
                 Factor *temp = (Factor *)E;
-                llvm::errs() << "countExprs: " << countExprs << "countIdents: " << countIdentifiers << '\n' << temp->getVal();
+                llvm::errs() << "countExprs: " << countExprs << "countIdents: " << countIdentifiers << '\n' << temp->getVal() << "\n";
             }
             else
+                goto _error;
+        }
+        if(count_exprs > countIdentifiers){
                 goto _error;
         }
     }
