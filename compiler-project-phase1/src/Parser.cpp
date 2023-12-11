@@ -346,7 +346,7 @@ Expr *Parser::parseExpr6()
         else if(Tok.is(Token::slash))
             Op = BinaryOp::Div;
         else if(Tok.is(Token::remain))
-            Op = BinaryOp::remain; // new 
+            Op = BinaryOp::Remain; // new 
 
         advance();
         Expr *Right = parseTerm();
