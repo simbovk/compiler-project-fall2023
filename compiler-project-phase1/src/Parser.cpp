@@ -73,7 +73,7 @@ Expr *Parser::parseDec()
 {
     Expr *E;
     llvm::SmallVector<llvm::StringRef, 8> Vars;
-    llvm::SmallVector<llvm::StringRef, 8> Numbers;
+    llvm::SmallVector<Expr *> Numbers;
     int countIdentifiers = 0, countExprs = 0;
     if (expect(Token::KW_int))
         goto _error;
@@ -196,7 +196,8 @@ Expr *Parser::parseCondition()
         if (expect(Token::colon))
             goto _error3; // error() or error3 idk :}
         advance();
-        B = (BE *)parseBE() if (B)
+        B = (BE *)parseBE();
+        if (B)
         {
             bes.push_back(B);
         }
