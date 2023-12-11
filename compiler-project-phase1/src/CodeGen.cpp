@@ -3,7 +3,9 @@
 #include "llvm/IR/IRBuilder.h"
 #include "llvm/IR/LLVMContext.h"
 #include "llvm/Support/raw_ostream.h"
-#include <stdio>
+#include <iostream>
+
+using namespace std;
 
 using namespace llvm;
 
@@ -133,7 +135,7 @@ namespace
         if (f && f->getKind() == Factor::ValueKind::Number){
           int right_value_as_int;
           f->getVal().getAsInteger(10, right_value_as_int);
-          std::cout << f->getVal().getAsInteger(10, right_value_as_int)
+          cout << f->getVal().getAsInteger(10, right_value_as_int)
              << " :: " << f->getVal();
           if(right_value_as_int == 0)
             V = ConstantInt::get(Int32Ty, 1, true);
