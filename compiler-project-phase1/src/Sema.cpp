@@ -86,7 +86,7 @@ namespace
     virtual void visit(Loop &node) override{}
     virtual void visit(BE &node) override{}
 
-    Visit function for Assignment nodes
+    // Visit function for Assignment nodes
     virtual void visit(Assignment &Node) override
     {
       Factor *dest = Node.getLeft();
