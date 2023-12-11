@@ -129,7 +129,9 @@ namespace
       {
         V = Left;
         Factor *f = (Factor *)Right;
-        llvm::errs() << f->getVal().getAsInteger(10)
+        int temp;
+        f->getVal().getAsInteger(10, temp);
+        llvm::errs() << temp
              << " :: " << f->getVal();
         if (f && f->getKind() == Factor::ValueKind::Number){
           int right_value_as_int;
