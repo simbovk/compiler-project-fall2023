@@ -126,10 +126,18 @@ namespace
         V = Builder.CreateSDiv(Left, Right);
         break;
       case BinaryOp::Power:
-        V = left;
-        for (int i = 0; i < Right; i++)
-        {
-          V = Builder.CreateNSWMul(V, Left);
+         V = left;
+        Factor *f = (Factor *)Right;
+        if (Right && f->getKind() == Factor::ValueKind::Number){
+          int right_value_as_int;
+          Right.getVal().getAsInteger(10, right_value_as_int);
+          if(right_value_as_int == 0)
+            V = ConstantInt::get(Int32Ty, 1, true);
+          else{
+            for(int i = 1;i < right_value_as_int;i++){
+              V = Builder.CreateNSWMul(V, left);
+            }
+          }
         }
         break;
       case BinaryOp::Remain:
