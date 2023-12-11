@@ -225,7 +225,7 @@ namespace
       // Our code
       Value *val = nullptr;
       BE *be = (BE *)Node.getBE();
-      if (Node.getExpr())
+      if (be && Node.getExpr())
       {
         Node.getExpr()->accept(*this);
         val = V;
