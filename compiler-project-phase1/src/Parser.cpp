@@ -427,8 +427,7 @@ Expr *Parser::parseBE()
     llvm::SmallVector<Expr *> assigns;
     if (expect(Token::begin))
     {
-        error();
-        return nullptr; // idk error or error()
+        goto _error6;
     }
 
     advance();
@@ -452,10 +451,13 @@ Expr *Parser::parseBE()
 
     if (expect(Token::end))
     {
-        error();
-        return nullptr; // idk error or error()
+        goto _error6;
     }
 
     advance();
     return new BE(assigns);
+_error6: // TODO: Check this later in case of error :)
+    while (Tok.getKind() != Token::eoi)
+        advance();
+    return nullptr;
 }
