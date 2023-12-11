@@ -15,6 +15,7 @@ AST *Parser::parseGoal()
         switch (Tok.getKind())
         {
         case Token::KW_int:
+        {
             Expr *d;
             d = parseDec();
             if (d)
@@ -22,32 +23,36 @@ AST *Parser::parseGoal()
             else
                 goto _error2;
             break;
+        }    
         case Token::ident:
-            Expr *a;
-            a = parseAssign();
+            {
+                Expr *a;
+                a = parseAssign();
 
-            // if (!Tok.is(Token::semicolon))
-            // {
-            //     error();
-            //     goto _error2;
-            // }
-            if (a)
-                exprs.push_back(a);
-            else
-                goto _error2;
-            break;
-
+                // if (!Tok.is(Token::semicolon))
+                // {
+                //     error();
+                //     goto _error2;
+                // }
+                if (a)
+                    exprs.push_back(a);
+                else
+                    goto _error2;
+                break;
+            }
         case Token::KW_if:
-            Expr *e;
+        {
+           Expr *e;
             e = parseCondition();
 
             if (e)
                 exprs.push_back(e);
             else
                 goto _error2;
-            break;
-
+            break; 
+        }
         case Token::loop:
+        {
             Expr *l;
             l = parseLoop();
 
@@ -56,6 +61,7 @@ AST *Parser::parseGoal()
             else
                 goto _error2;
             break;
+        } 
         default:
             goto _error2;
             break;
