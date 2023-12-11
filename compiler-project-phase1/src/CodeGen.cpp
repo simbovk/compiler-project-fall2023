@@ -225,10 +225,12 @@ namespace
       // Our code
       Value *val = nullptr;
       BE *be = (BE *)Node.getBE();
-      if (be && Node.getExpr())
+      llvm::errs() << "sina koooni";
+      if (Node.getExpr())
       {
         Node.getExpr()->accept(*this);
         val = V;
+        llvm:errs() << "kos nagoo ali";
         while (val)
         {
           Node.getExpr()->accept(*this);
