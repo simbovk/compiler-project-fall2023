@@ -213,8 +213,6 @@ private:
 public:
     BE(llvm::SmallVector<Expr *> assigns) : assigns(assigns) {}
 
-    llvm::SmallVector<Expr *> getAssigns() { return assigns; }
-
     ExprVector::const_iterator begin() { return assigns.begin(); }
 
     ExprVector::const_iterator end() { return assigns.end(); }
@@ -251,15 +249,15 @@ private:
     ExprVector bes;   // Stores the list of bes
 
 public:
-    Declaration(llvm::SmallVector<Expr *> exprs, llvm::SmallVector<Expr *> bes) : exprs(exprs), bes(bes) {}
+    Condition(llvm::SmallVector<Expr *> exprs, llvm::SmallVector<Expr *> bes) : exprs(exprs), bes(bes) {}
 
-    VarVector::const_iterator exprs_begin() { return exprs.begin(); }
+    ExprVector::const_iterator exprs_begin() { return exprs.begin(); }
 
-    VarVector::const_iterator exprs_end() { return exprs.end(); }
+    ExprVector::const_iterator exprs_end() { return exprs.end(); }
 
-    VarVector::const_iterator bes_begin() { return bes.begin(); }
+    ExprVector::const_iterator bes_begin() { return bes.begin(); }
 
-    VarVector::const_iterator bes_end() { return bes.end(); }
+    ExprVector::const_iterator bes_end() { return bes.end(); }
 
     virtual void accept(ASTVisitor &V) override
     {
