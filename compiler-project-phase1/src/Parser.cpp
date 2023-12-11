@@ -217,13 +217,15 @@ Expr *Parser::parseLoop()
     BE *B;
 
     if (expect(Token::loop))
-        goto _error4; // Error error() idk
+        error(); // Error error() idk
+        return nullptr;
 
     advance();
     E = parseExpr();
 
     if (expect(Token::colon))
-        goto _error3; // error() or error3 idk :}
+        error(); // Error error() idk
+        return nullptr;
     advance();
 
     B = (BE *)(parseBE());

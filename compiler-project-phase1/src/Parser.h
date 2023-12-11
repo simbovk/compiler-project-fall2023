@@ -50,8 +50,7 @@ class Parser
     Expr *parseExpr4();
     Expr *parseExpr5();
     Expr *parseTerm();
-    Expr *parseFactor1();
-    Expr *parseFactor2();
+    Expr *parseFactor();
     Expr *parseLoop();
     Expr *parseBE();
     Expr *parseCondition();
