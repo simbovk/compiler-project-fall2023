@@ -416,8 +416,8 @@ Expr *Parser::parseBE()
 
     while (Tok.is(Token::ident))
     {
-        E = parseAssign();
-        Factor *f = E.getLeft();
+        E = (Assignment *)parseAssign();
+        Factor *f = E->getLeft();
         llvm::errs() << f->getVal();
         if (E)
         {
