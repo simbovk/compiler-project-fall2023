@@ -126,6 +126,7 @@ namespace
         V = Builder.CreateSDiv(Left, Right);
         break;
       case BinaryOp::Power:
+      {
         V = Left;
         Factor *f = (Factor *)Right;
         if (f && f->getKind() == Factor::ValueKind::Number){
@@ -140,6 +141,9 @@ namespace
           }
         }
         break;
+      }
+        
+
       case BinaryOp::Remain:
         V = Builder.CreateSRem(Left, Right);
         break;
