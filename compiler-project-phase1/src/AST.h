@@ -24,8 +24,7 @@ public:
     virtual void visit(AST &) {}           // Visit the base AST node
     virtual void visit(Expr &) {}          // Visit the expression node
     virtual void visit(Goal &) = 0;        // Visit the group of expressions node
-    virtual void visit(Factor &) = 0;      // Visit the factor node
-    virtual void visit(Term &) = 0;        // Visit the term node
+    virtual void visit(Factor &) = 0;      // Visit the factor nodes
     virtual void visit(Assignment &) = 0;  // Visit the assignment expression node
     virtual void visit(Declaration &) = 0; // Visit the variable declaration node
     virtual void visit(Loop &) = 0;        // Visit the Loop node
