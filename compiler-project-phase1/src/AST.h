@@ -229,21 +229,23 @@ class Condition : public Expr
 {
 
     using ExprVector = llvm::SmallVector<Expr *>;
+    using BEVector = llvm::SmallVector<BE *>;
+
 
 private:
     ExprVector exprs; // Stores the list of expressions
-    ExprVector bes;   // Stores the list of bes
+    BEVector bes;   // Stores the list of bes
 
 public:
-    Condition(llvm::SmallVector<Expr *> exprs, llvm::SmallVector<Expr *> bes) : exprs(exprs), bes(bes) {}
+    Condition(llvm::SmallVector<Expr *> exprs, llvm::SmallVector<BE *> bes) : exprs(exprs), bes(bes) {}
 
     ExprVector::const_iterator exprs_begin() { return exprs.begin(); }
 
     ExprVector::const_iterator exprs_end() { return exprs.end(); }
 
-    ExprVector::const_iterator bes_begin() { return bes.begin(); }
+    BEVector::const_iterator bes_begin() { return bes.begin(); }
 
-    ExprVector::const_iterator bes_end() { return bes.end(); }
+    BEVector::const_iterator bes_end() { return bes.end(); }
 
     virtual void accept(ASTVisitor &V) override
     {

@@ -149,7 +149,7 @@ Expr *Parser::parseCondition()
     BE *B;
 
     llvm::SmallVector<Expr *> exprs;
-    llvm::SmallVector<Expr *> bes;
+    llvm::SmallVector<BE *> bes;
 
     if (expect(Token::KW_if))
         goto _error3;
