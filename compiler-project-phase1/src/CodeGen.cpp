@@ -336,7 +336,8 @@ namespace
             Builder.SetInsertPoint(ifBodyBB);
           }
         }
-        else{
+        else{ //else body
+        lvm::errs() << "else20\n";
           Builder.SetInsertPoint(ifcondBB);
 
         }
