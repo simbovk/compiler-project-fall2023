@@ -182,6 +182,7 @@ namespace
     {
 
       // Our code
+      hasValue = false;
       auto e_I = Node.begin_values(), e_E = Node.end_values();
       // Iterate over the variables declared in the declaration statement.
       for (auto I = Node.begin(), E = Node.end(); I != E; ++I, ++e_I)
@@ -191,7 +192,7 @@ namespace
         // Create an alloca instruction to allocate memory for the variable.
         nameMap[Var] = Builder.CreateAlloca(Int32Ty);
         
-        if (*e_I) // star or not ? 
+        if (e_I != e_E) // star or not ? 
         {
           (* e_I)->accept(*this);
           // Factor *f = (Factor *)e_I;
@@ -207,10 +208,10 @@ namespace
             Builder.CreateStore(val, nameMap[Var]);
           }
         }
-        else
+        else if(e_I == e_E || hasValue)
         {
-          llvm::errs() << "bombastic" + '\n';
-          val = ConstantInt::get(Int32Ty, 0, true);
+          hasValue = true;
+          val = ConstantInt::get(Int32T, 0, true);
           if (val != nullptr)
           {
             Builder.CreateStore(val, nameMap[Var]);
