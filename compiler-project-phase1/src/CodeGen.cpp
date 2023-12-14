@@ -310,12 +310,16 @@ namespace
    
         }
         else if(count_exprs > 1){
+          llvm::errs() << "elif\n";
           Builder.CreateBr(ifcondBB);
           Builder.SetInsertPoint(ifcondBB);
           (*I)->accept(*this);
+          llvm::errs() << "elif2\n";
+
           val = V;
           ifBodyBB = llvm::BasicBlock::Create(M -> getContext(), "elif.body", MainFn);
           ifcondBB = llvm::BasicBlock::Create(M -> getContext(), "elif.condition", MainFn);
+          llvm::errs() << "elif3\n";
           if(hasElse && count_exprs == 1){ // next is else
             ifcondBB = llvm::BasicBlock::Create(M -> getContext(), "else.body", MainFn);
             Builder.CreateCondBr(val, ifBodyBB, ifcondBB);
