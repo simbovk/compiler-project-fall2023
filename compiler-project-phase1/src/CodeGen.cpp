@@ -343,12 +343,12 @@ namespace
 
           llvm::errs() << "else3\n";
         for (auto F = bes_I->begin(), G = bes_I->end(); G != F; ++F){
-          lvm::errs() << "for2\n";
+          llvm::errs() << "for2\n";
             (*F)->accept(*this);
         }
-        lvm::errs() << "end of for\n";
+        llvm::errs() << "end of for\n";
         Builder.CreateBr(afterIfConditionBB);
-        lvm::errs() << "salam\n";
+        llvm::errs() << "salam\n";
         count_exprs--;
       }
       Builder.SetInsertPoint(afterIfConditionBB);
