@@ -349,7 +349,7 @@ namespace
         }
 
           llvm::errs() << "else3\n";
-        for (auto F = bes_I->begin(), G = bes_I->end(); G != F; ++F){
+        for (auto F = bes_I->begin(), G = bes_I->end(); ++G != F; ++F){
           llvm::errs() << "for2\n";
             (*F)->accept(*this);
         }
