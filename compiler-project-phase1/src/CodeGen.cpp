@@ -262,6 +262,8 @@ namespace
       bool endOfCondition = false;
       llvm::BasicBlock* ifcondBB;
       llvm::BasicBlock* ifBodyBB;
+      llvm::BasicBlock* afterIfConditionBB = llvm::BasicBlock::Create(M -> getContext(), "after", MainFn);;
+
       for (auto I = Node.exprs_begin(), E = Node.exprs_end(); I != E; ++I)
       {
         count_exprs++;
@@ -270,33 +272,69 @@ namespace
       {
         count_bes++;
       }
+      bool hasElse = (count_bes - count_exprs)  == 1;
+
       BE* bes_I = *(Node.getAllBes().begin()), *bes_E = *(Node.getAllBes().end());
+      
       for (auto I = Node.exprs_begin(), E = Node.exprs_begin(); I != E; ++I, ++bes_I)
       {
-    
+        
         if (hasIf)
         {
           ifcondBB = llvm::BasicBlock::Create(M -> getContext(), "if.condition", MainFn);
-          
+          Builder.CreateBr(ifcondBB);
+          Builder.SetInsertPoint(ifcondBB);
           (*I)->accept(*this);
           val = V;
           
-          ifBodyBB = llvm::BasicBlock::Create(M -> getContext(), "if.Body", MainFn);
+          ifBodyBB = llvm::BasicBlock::Create(M -> getContext(), "if.body", MainFn);
+          if(hasElse && count_exprs == 1){ // next is else
+            ifcondBB = llvm::BasicBlock::Create(M -> getContext(), "else.body", MainFn);
+            Builder.CreateCondBr(val, ifBodyBB, ifcondBB);
+            Builder.SetInsertPoint(ifBodyBB);
+          }
+          else if(count_exprs > 0){ // next is elif
+            ifcondBB = llvm::BasicBlock::Create(M -> getContext(), "elif.condition", MainFn);
+            Builder.CreateCondBr(val, ifBodyBB, ifcondBB);
+            Builder.SetInsertPoint(ifBodyBB);
+          }
+      
           hasIf = false;
 
-          for (auto F = bes_I->begin(), G = bes_I->end(); G != F; ++F){
-            (*F)->accept(*this);
+   
+        }
+        else if(count_exprs > 0){
+          Builder.CreateBr(ifcondBB);
+          Builder.SetInsertPoint(ifcondBB);
+          (*I)->accept(*this);
+          val = V;
+          ifBodyBB = llvm::BasicBlock::Create(M -> getContext(), "elif.body", MainFn);
+          ifcondBB = llvm::BasicBlock::Create(M -> getContext(), "elif.condition", MainFn);
+          if(hasElse && count_exprs == 1){ // next is else
+            ifcondBB = llvm::BasicBlock::Create(M -> getContext(), "else.body", MainFn);
+            Builder.CreateCondBr(val, ifBodyBB, ifcondBB);
+            Builder.SetInsertPoint(ifBodyBB);
+          }
+          else if(count_exprs > 0){ // next is elif
+            ifcondBB = llvm::BasicBlock::Create(M -> getContext(), "elif.condition", MainFn);
+            Builder.CreateCondBr(val, ifBodyBB, ifcondBB);
+            Builder.SetInsertPoint(ifBodyBB);
           }
 
+          Builder.CreateCondBr(val, ifBodyBB, elifConditionBB);
+          Builder.SetInsertPoint(ifBodyBB);
         }
+        else{
+          Builder.SetInsertPoint(ifcondBB);
+
+        }
+        for (auto F = bes_I->begin(), G = bes_I->end(); G != F; ++F){
+            (*F)->accept(*this);
+        }
+        Builder.CreateBr(afterIfConditionBB);
+        count_exprs--;
       }
-      // else
-      if (count_bes + 1 == count_exprs)
-      {
-        auto bese = Node.bes_end();
-        (*bese)->accept(*this);
-      }
-      // if(endOfCondition)
+      Builder.SetInsertPoint(afterIfConditionBB);
     };
   };
 }; // namespace
