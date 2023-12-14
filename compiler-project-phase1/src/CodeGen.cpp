@@ -295,6 +295,7 @@ namespace
             ifcondBB = llvm::BasicBlock::Create(M -> getContext(), "else.body", MainFn);
             Builder.CreateCondBr(val, ifBodyBB, ifcondBB);
             Builder.SetInsertPoint(ifBodyBB);
+            llvm::errs() << "else32\n";
           }
           else if(count_exprs > 1){ // next is elif
             ifcondBB = llvm::BasicBlock::Create(M -> getContext(), "elif.condition", MainFn);
@@ -325,6 +326,7 @@ namespace
             ifcondBB = llvm::BasicBlock::Create(M -> getContext(), "else.body", MainFn);
             Builder.CreateCondBr(val, ifBodyBB, ifcondBB);
             Builder.SetInsertPoint(ifBodyBB);
+            llvm::errs() << "else31\n";
           } else if(count_exprs > 1){ // next is elif
             ifcondBB = llvm::BasicBlock::Create(M -> getContext(), "elif.condition", MainFn);
             Builder.CreateCondBr(val, ifBodyBB, ifcondBB);
