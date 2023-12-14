@@ -191,13 +191,13 @@ public:
 class BE : public Expr
 {
 
-    using ExprVector = llvm::SmallVector<Expr *>;
+    using ExprVector = llvm::SmallVector<Assignment *>;
 
 private:
     ExprVector assigns; // Stores the list of expressions
 
 public:
-    BE(llvm::SmallVector<Expr *> assigns) : assigns(assigns) {}
+    BE(llvm::SmallVector<Assignment *> assigns) : assigns(assigns) {}
 
     ExprVector::const_iterator begin() { return assigns.begin(); }
 

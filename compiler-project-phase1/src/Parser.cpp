@@ -425,7 +425,7 @@ Expr *Parser::parseBE()
 {
 
     Assignment *E;
-    llvm::SmallVector<Expr *> assigns;
+    llvm::SmallVector<Assignment *> assigns;
     if (expect(Token::begin))
     {
         goto _error6;
@@ -435,7 +435,7 @@ Expr *Parser::parseBE()
 
     while (Tok.is(Token::ident))
     {
-        E = (Assignment *)parseAssign();
+        E = parseAssign();
         Factor *f = E->getLeft();
         Factor *t = (Factor *)E->getRight();
         //llvm::errs() << f->getVal() << " " << t->getVal();
