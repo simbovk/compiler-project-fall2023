@@ -270,7 +270,7 @@ namespace
       {
         count_bes++;
       }
-      BE *bes_I = Node.bes_begin(), *bes_E = Node.bes_end();
+      BE *bes_I = Node.getAllBes().begin(), *bes_E = Node.getAllBes().end();
       for (auto I = Node.exprs_begin(), E = Node.exprs_begin(); I != E; ++I, ++bes_I)
       {
     

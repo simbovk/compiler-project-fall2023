@@ -243,9 +243,11 @@ public:
 
     ExprVector::const_iterator exprs_end() { return exprs.end(); }
 
-    BE* bes_begin() { return bes.begin(); }
+    llvm::SmallVector<BE *> getAllBes() { return bes; }
 
-    BE* bes_end() { return bes.end(); }
+    BEVector::const_iterator bes_begin() { return bes.begin(); }
+
+    BEVector::const_iterator bes_end() { return bes.end(); }
 
     virtual void accept(ASTVisitor &V) override
     {
