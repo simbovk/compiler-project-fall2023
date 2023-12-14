@@ -231,7 +231,7 @@ namespace
         val = V;
         while (val)
         {
-          llvm::errs() << ((Factor *)Node.getExpr())->getVal();
+          llvm::errs() << ((Factor *)Node.getExpr())->getVal() << " " << val << '\n';
           be->accept(*this);
           Node.getExpr()->accept(*this); // error
           val = V;
