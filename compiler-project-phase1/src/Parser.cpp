@@ -247,7 +247,7 @@ _error5: // TODO: Check this later in case of error :)
     return nullptr;
 }
 
-Expr *Parser::parseAssign()
+Assignment *Parser::parseAssign()
 {
     Expr *E;
     Factor *F;
