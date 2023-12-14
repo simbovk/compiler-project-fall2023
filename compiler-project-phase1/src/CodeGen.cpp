@@ -204,6 +204,7 @@ namespace
         }
         else
         {
+          llvm::errs() << "bombastic" + '\n';
           val = ConstantInt::get(Int32Ty, 0, true);
           if (val != nullptr)
           {
@@ -246,6 +247,7 @@ namespace
 
       Builder.CreateBr(WhileCondBB);
       Builder.SetInsertPoint(AfterWhileBB);
+
       // // Our code
       // Value *val = nullptr;
       // BE *be = (BE *)Node.getBE();
