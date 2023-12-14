@@ -278,6 +278,8 @@ namespace
       BE* bes_I = *(Node.getAllBes().begin()), *bes_E = *(Node.getAllBes().end());
       BE* bes_I_tmp = *(Node.getAllBes().begin());
       bes_I_tmp++;
+      llvm::errs() << *bes_I_tmp;
+      llvm::errs() << (*bes_I_tmp).begin();
       (*(*bes_I_tmp).begin())->accept(*this);
 
       llvm::errs() << "counts: " << count_bes << count_exprs << '\n';
