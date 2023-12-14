@@ -279,6 +279,8 @@ namespace
       
       for (auto I = Node.exprs_begin(), E = Node.exprs_end(); I != E; ++I, ++bes_I)
       {
+          llvm::errs() << "for\n";
+
         
         if (hasIf)
         {
