@@ -191,7 +191,7 @@ namespace
         // Create an alloca instruction to allocate memory for the variable.
         nameMap[Var] = Builder.CreateAlloca(Int32Ty);
         
-        if (e_I != nullptr) // star or not ? 
+        if (*e_I) // star or not ? 
         {
           (* e_I)->accept(*this);
           // Factor *f = (Factor *)e_I;
@@ -290,20 +290,16 @@ namespace
       }
       for (auto I = Node.exprs_begin(), E = Node.exprs_begin(), bes_I = Node.bes_begin(), bes_E = Node.bes_end(); I != E; ++I, ++bes_I)
       {
-        llvm::errs() << "goh3" << '\n';
         if (*I)
         {
-          llvm::errs() << "goh2" << '\n';
           (*I)->accept(*this);
           val = V;
           flag_has_been_true = true;
           if (val != nullptr)
           {
-            llvm::errs() << "goh1" << '\n'; 
             if (bes_I != nullptr)
             {
               (*bes_I)->accept(*this);
-              llvm::errs() << "goh" << "\n";
             }
 
             break;
