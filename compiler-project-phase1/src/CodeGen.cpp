@@ -280,7 +280,7 @@ namespace
       llvm::errs() << "counts: " << count_bes << count_exprs << '\n';
       auto E_E = Node.exprs_end();
       E_E++; 
-      for (auto I = Node.exprs_begin(), E = Node.exprs_end(); I != E_E; ++I, ++bes_I)
+      for (auto I = Node.exprs_begin(), E = Node.exprs_end(); I != E_E; ++I)
       {
         
         llvm::errs() << "for\n";
@@ -358,6 +358,7 @@ namespace
         Builder.CreateBr(afterIfConditionBB);
         llvm::errs() << "salam\n";
         count_exprs--;
+        bes_I++;
       }
       Builder.SetInsertPoint(afterIfConditionBB);
     };
