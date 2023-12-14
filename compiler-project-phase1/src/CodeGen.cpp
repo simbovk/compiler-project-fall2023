@@ -230,7 +230,7 @@ namespace
         Node.getExpr()->accept(*this);
         val = V;
         // llvm::errs() << "val : " << *val << '\n';
-        while (val)
+        while (*val)
         {
           be->accept(*this);
           llvm::errs() << ((Factor *)Node.getExpr())->getVal() << " " << *val << '\n';
