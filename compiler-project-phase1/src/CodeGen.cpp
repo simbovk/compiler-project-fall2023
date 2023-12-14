@@ -229,7 +229,7 @@ namespace
       {
         Node.getExpr()->accept(*this);
         val = V;
-        llvm::errs() << "val : " << *val << endl;
+        llvm::errs() << "val : " << *val << '\n';
         while (val)
         {
           be->accept(*this);
