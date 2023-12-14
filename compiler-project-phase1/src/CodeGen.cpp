@@ -277,9 +277,8 @@ namespace
 
       BE* bes_I = *(Node.getAllBes().begin()), *bes_E = *(Node.getAllBes().end());
       
-      for (auto I = Node.exprs_begin(), E = Node.exprs_begin(); I != E; ++I, ++bes_I)
+      for (auto I = Node.exprs_begin(), E = Node.exprs_end(); I != E; ++I, ++bes_I)
       {
-        llvm::errs() << "for" << "\n";
         
         if (hasIf)
         {
