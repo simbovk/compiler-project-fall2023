@@ -321,7 +321,7 @@ namespace
             Builder.SetInsertPoint(ifBodyBB);
           }
 
-          Builder.CreateCondBr(val, ifBodyBB, elifConditionBB);
+          Builder.CreateCondBr(val, ifBodyBB, ifcondBB);
           Builder.SetInsertPoint(ifBodyBB);
         }
         else{
