@@ -302,6 +302,7 @@ namespace
             Builder.SetInsertPoint(ifBodyBB);
           } 
           else{
+          llvm::errs() << "else\n";
             Builder.CreateCondBr(val, ifBodyBB, afterIfConditionBB);
             Builder.SetInsertPoint(ifBodyBB);
 
@@ -325,14 +326,11 @@ namespace
             ifcondBB = llvm::BasicBlock::Create(M -> getContext(), "else.body", MainFn);
             Builder.CreateCondBr(val, ifBodyBB, ifcondBB);
             Builder.SetInsertPoint(ifBodyBB);
-          }
-          else if(count_exprs > 1){ // next is elif
+          } else if(count_exprs > 1){ // next is elif
             ifcondBB = llvm::BasicBlock::Create(M -> getContext(), "elif.condition", MainFn);
             Builder.CreateCondBr(val, ifBodyBB, ifcondBB);
             Builder.SetInsertPoint(ifBodyBB);
-          }
-
-          else{
+          } else{
             Builder.CreateCondBr(val, ifBodyBB, afterIfConditionBB);
             Builder.SetInsertPoint(ifBodyBB);
           }
