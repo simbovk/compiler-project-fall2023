@@ -310,8 +310,7 @@ namespace
           hasIf = false;
 
    
-        }
-        else if(count_exprs > 1){
+        } else if(count_exprs > 0){
           llvm::errs() << "elif\n";
           Builder.CreateBr(ifcondBB);
           Builder.SetInsertPoint(ifcondBB);
