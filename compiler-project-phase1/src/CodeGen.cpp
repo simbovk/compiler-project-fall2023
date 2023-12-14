@@ -211,7 +211,7 @@ namespace
     {
       for (auto I = Node.begin(), E = Node.end(); I != E; ++I)
       {
-        if (*I)
+        if (I)
         {
           Assignment *casted_I = (Assignment *)I;
           casted_I->accept(*this);
@@ -230,7 +230,7 @@ namespace
         Node.getExpr()->accept(*this);
         val = V;
         // llvm::errs() << "val : " << *val << '\n';
-        while (*val)
+        while (val)
         {
           be->accept(*this);
           llvm::errs() << ((Factor *)Node.getExpr())->getVal() << " " << *val << '\n';
