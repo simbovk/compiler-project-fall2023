@@ -352,6 +352,7 @@ namespace
         for (auto F = bes_I->begin(), G = bes_I->end(); G != F; ++F){
           llvm::errs() << "for2\n";
           (*F)->accept(*this);
+          llvm::errs() << "for2 next\n";
         }
         llvm::errs() << "end of for\n";
         Builder.CreateBr(afterIfConditionBB);
