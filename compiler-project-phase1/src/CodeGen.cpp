@@ -18,6 +18,8 @@ namespace
     Type *Int8PtrTy;
     Type *Int8PtrPtrTy;
     Constant *Int32Zero;
+    Function *MainFn;
+    FunctionType *MainFty;
 
     Value *V;
     StringMap<AllocaInst *> nameMap;
