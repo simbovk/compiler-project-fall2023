@@ -199,9 +199,10 @@ private:
 public:
     BE(llvm::SmallVector<Assignment *> assigns) : assigns(assigns) {}
 
-    ExprVector::const_iterator begin() { return assigns.begin(); }
+    Assignment* begin() { return assigns.begin(); }
 
-    ExprVector::const_iterator end() { return assigns.end(); }
+    Assignment* end() { return assigns.end(); }
+
 
     virtual void accept(ASTVisitor &V) override
     {
