@@ -331,8 +331,8 @@ namespace
             Builder.SetInsertPoint(ifBodyBB);
           } else{
           llvm::errs() << "else\n";
-
             Builder.CreateCondBr(val, ifBodyBB, afterIfConditionBB);
+          llvm::errs() << "else2\n";
             Builder.SetInsertPoint(ifBodyBB);
           }
         }
@@ -340,6 +340,8 @@ namespace
           Builder.SetInsertPoint(ifcondBB);
 
         }
+
+          llvm::errs() << "else3\n";
         for (auto F = bes_I->begin(), G = bes_I->end(); G != F; ++F){
             (*F)->accept(*this);
         }
