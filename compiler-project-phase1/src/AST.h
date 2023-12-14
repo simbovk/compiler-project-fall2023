@@ -191,15 +191,19 @@ public:
 class BE : public Expr
 {
 
+    using ExprVector = llvm::SmallVector<Assignment *>;
+
 private:
-    llvm::SmallVector<Assignment *> assigns; // Stores the list of expressions
+    ExprVector assigns; // Stores the list of expressions
 
 public:
-    BE(llvm::SmallVector<Assignment *> a) : assigns(a) {}
+    BE(llvm::SmallVector<Assignment *> assigns) : assigns(assigns) {}
 
-    Assignment* begin() { return assigns.begin(); }
+    ExprVector::const_iterator begin() { return assigns.begin(); }
 
-    Assignment* end() { return assigns.end(); }
+    ExprVector::const_iterator end() { return assigns.end(); }
+
+    llvm::SmallVector<Assignment *> getAssigns() { return assigns; }
 
 
     virtual void accept(ASTVisitor &V) override
