@@ -193,7 +193,7 @@ namespace
         
         if (e_I != nullptr) // star or not ? 
         {
-          (* e_I)->accept(*this)
+          (* e_I)->accept(*this);
           // Factor *f = (Factor *)e_I;
           // int temp;
           // f->getVal().getAsInteger(10, temp); 
