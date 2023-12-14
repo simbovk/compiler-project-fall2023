@@ -231,8 +231,8 @@ namespace
         val = V;
         while (val)
         {
-          Node.getExpr()->accept(*this);
-          be->accept(*this); // error
+          be->accept(*this);
+          Node.getExpr()->accept(*this); // error
           val = V;
         }
       }
