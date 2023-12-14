@@ -182,7 +182,7 @@ namespace
     {
 
       // Our code
-      hasValue = false;
+      bool hasValue = false;
       auto e_I = Node.begin_values(), e_E = Node.end_values();
       // Iterate over the variables declared in the declaration statement.
       for (auto I = Node.begin(), E = Node.end(); I != E; ++I, ++e_I)
