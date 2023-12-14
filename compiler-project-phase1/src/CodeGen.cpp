@@ -232,7 +232,7 @@ namespace
       Builder.CreateCondBr(val, WhileBodyBB, AfterWhileBB);
       Builder.SetInsertPoint(WhileBodyBB);
       BE *be = (BE *)Node.getBE();
-      (*be)->accept(*this);
+      (be)->accept(*this);
       // llvm::SmallVector<Assignment* > assignments = Node.getAssignments();
       // for (auto I = assignments.begin(), E = assignments.end(); I != E; ++I){
       //   (*I)->accept(*this);
