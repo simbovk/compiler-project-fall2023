@@ -229,11 +229,11 @@ namespace
       {
         Node.getExpr()->accept(*this);
         val = V;
-        llvm::errs() << "val : " << *val;
+        llvm::errs() << "val : " << *val << endl;
         while (val)
         {
           be->accept(*this);
-          llvm::errs() << ((Factor *)Node.getExpr())->getVal() << " " << &val << '\n';
+          llvm::errs() << ((Factor *)Node.getExpr())->getVal() << " " << {val} << '\n';
           // Node.getExpr().
         }
       }
