@@ -247,22 +247,7 @@ namespace
 
       Builder.CreateBr(WhileCondBB);
       Builder.SetInsertPoint(AfterWhileBB);
-
-      // // Our code
-      // Value *val = nullptr;
-      // BE *be = (BE *)Node.getBE();
-      // if (Node.getExpr())
-      // {
-      //   Node.getExpr()->accept(*this);
-      //   val = V;
-      //   // llvm::errs() << "val : " << *val << '\n';
-      //   while (val)
-      //   {
-      //     be->accept(*this);
-      //     llvm::errs() << ((Factor *)Node.getExpr())->getVal() << " " << *val << '\n';
-      //     // Node.getExpr().
-      //   }
-      // }
+    
 
     };
 
@@ -270,11 +255,13 @@ namespace
     {
 
       // Our code
-
       Value *val = nullptr;
       int count_exprs = 0;
       int count_bes = 0;
-      bool flag_has_been_true = false;
+      bool hasIf = true;
+      bool endOfCondition = false;
+      llvm::BasicBlock* ifcondBB;
+      llvm::BasicBlock* ifBodyBB;
       for (auto I = Node.exprs_begin(), E = Node.exprs_end(); I != E; ++I)
       {
         count_exprs++;
@@ -285,28 +272,29 @@ namespace
       }
       for (auto I = Node.exprs_begin(), E = Node.exprs_begin(), bes_I = Node.bes_begin(), bes_E = Node.bes_end(); I != E; ++I, ++bes_I)
       {
-        if (count_exprs > 0)
+        if (hasIf)
         {
+          ifcondBB = llvm::BasicBlock::Create(M -> getContext(), "if.condition", MainFn);
+          
           (*I)->accept(*this);
           val = V;
-          flag_has_been_true = true;
-          if (val != nullptr)
-          {
-            if (bes_I != nullptr)
-            {
-              (*bes_I)->accept(*this);
-            }
+          
+          ifBodyBB = llvm::BasicBlock::Create(M -> getContext(), "if.Body", MainFn);
+          hasIf = false;
 
-            break;
+          for (auto E = bes_I->begin(), E = bes_I->end(); I != E; ++I){
+            (*E)->accept(*this);
           }
-          count_exprs--;
+    
         }
       }
-      if (count_bes + 1 == count_exprs && !flag_has_been_true)
+      // else
+      if (count_bes + 1 == count_exprs)
       {
         auto bese = Node.bes_end();
         (*bese)->accept(*this);
       }
+      if(endOfCondition)
     };
   };
 }; // namespace
