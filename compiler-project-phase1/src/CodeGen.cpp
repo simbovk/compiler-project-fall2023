@@ -270,8 +270,10 @@ namespace
       {
         count_bes++;
       }
-      for (auto I = Node.exprs_begin(), E = Node.exprs_begin(), bes_I = Node.bes_begin(), bes_E = Node.bes_end(); I != E; ++I, ++bes_I)
+      auto bes_I = Node.bes_begin(), bes_E = Node.bes_end();
+      for (auto I = Node.exprs_begin(), E = Node.exprs_begin(); I != E; ++I, ++bes_I)
       {
+    
         if (hasIf)
         {
           ifcondBB = llvm::BasicBlock::Create(M -> getContext(), "if.condition", MainFn);
@@ -282,10 +284,10 @@ namespace
           ifBodyBB = llvm::BasicBlock::Create(M -> getContext(), "if.Body", MainFn);
           hasIf = false;
 
-          for (auto F = bes_I->begin(), G = bes_I->end(); I != E; ++I){
+          for (auto F = bes_I->begin(), G = bes_I->end(); G != F; ++F){
             (*F)->accept(*this);
           }
-    
+
         }
       }
       // else
