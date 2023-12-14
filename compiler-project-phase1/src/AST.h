@@ -191,10 +191,8 @@ public:
 class BE : public Expr
 {
 
-    using ExprVector = llvm::SmallVector<Assignment *>;
-
 private:
-    ExprVector assigns; // Stores the list of expressions
+    llvm::SmallVector<Assignment *> assigns; // Stores the list of expressions
 
 public:
     BE(llvm::SmallVector<Assignment *> a) : assigns(a) {}
