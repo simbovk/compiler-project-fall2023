@@ -211,7 +211,7 @@ namespace
         else if(e_I == e_E || hasValue)
         {
           hasValue = true;
-          val = ConstantInt::get(Int32T, 0, true);
+          val = ConstantInt::get(Int32Ty, 0, true);
           if (val != nullptr)
           {
             Builder.CreateStore(val, nameMap[Var]);
