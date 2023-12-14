@@ -38,7 +38,7 @@ namespace
     void run(AST *Tree)
     {
       // Create the main function with the appropriate function type.
-      FunctionType *MainFty = FunctionType::get(Int32Ty, {Int32Ty, Int8PtrPtrTy}, false);
+      MainFty = FunctionType::get(Int32Ty, {Int32Ty, Int8PtrPtrTy}, false);
       MainFn = Function::Create(MainFty, GlobalValue::ExternalLinkage, "main", M);
 
       // Create a basic block for the entry point of the main function.
