@@ -197,7 +197,7 @@ private:
     ExprVector assigns; // Stores the list of expressions
 
 public:
-    BE(llvm::SmallVector<Assignment *> assigns) : assigns(assigns) {}
+    BE(llvm::SmallVector<Assignment *> a) : assigns(a) {}
 
     Assignment* begin() { return assigns.begin(); }
 
