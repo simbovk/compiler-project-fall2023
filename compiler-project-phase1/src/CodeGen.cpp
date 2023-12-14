@@ -191,9 +191,9 @@ namespace
         // Create an alloca instruction to allocate memory for the variable.
         nameMap[Var] = Builder.CreateAlloca(Int32Ty);
 
-        if (e_I) // star or not ? 
+        if (*e_I) // star or not ? 
         {
-          (*e_I)->accept(*this);
+          (* e_I)->accept(*this);
 
           val = V;
 
@@ -204,7 +204,11 @@ namespace
         }
         else
         {
-          Builder.CreateStore(Int32Zero, nameMap[Var]);
+          val = ConstantInt::get(Int32Ty, 0, true);
+          if (val != nullptr)
+          {
+            Builder.CreateStore(val, nameMap[Var]);
+          }
         }
       }
     };
@@ -277,11 +281,6 @@ namespace
       {
         count_bes++;
       }
-        Factor *f = (Factor *)Node.exprs_begin();
-        int temp;
-        f->getVal().getAsInteger(10, temp);
-        llvm::errs() << temp
-             << " :: " << f->getVal();
       for (auto I = Node.exprs_begin(), E = Node.exprs_begin(), bes_I = Node.bes_begin(), bes_E = Node.bes_end(); I != E; ++I, ++bes_I)
       {
         llvm::errs() << "goh3" << '\n';
