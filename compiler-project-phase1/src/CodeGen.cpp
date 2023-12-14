@@ -195,11 +195,6 @@ namespace
         if (e_I != e_E) // star or not ? 
         {
           (* e_I)->accept(*this);
-          // Factor *f = (Factor *)e_I;
-          // int temp;
-          // f->getVal().getAsInteger(10, temp); 
-          // llvm::errs() << "fantastic" << temp << '\n';
-          // (* e_I)->accept(*this);
 
           val = V;
 
@@ -245,11 +240,10 @@ namespace
       Builder.CreateCondBr(val, WhileBodyBB, AfterWhileBB);
       Builder.SetInsertPoint(WhileBodyBB);
       BE *be = (BE *)Node.getBE();
-      // (be)->accept(*this);
-      // llvm::SmallVector<Assignment* >  = Node.getAssignments();
-      // for (auto I = assignments.begin(), E = assignments.end(); I != E; ++I){
-      //   (*I)->accept(*this);
-      // }
+      
+      for (auto I = be.begin(), E = be.end(); I != E; ++I){
+        (*I)->accept(*this);
+      }
 
       Builder.CreateBr(WhileCondBB);
       Builder.SetInsertPoint(AfterWhileBB);
@@ -291,7 +285,7 @@ namespace
       }
       for (auto I = Node.exprs_begin(), E = Node.exprs_begin(), bes_I = Node.bes_begin(), bes_E = Node.bes_end(); I != E; ++I, ++bes_I)
       {
-        if (*I)
+        if (count_exprs > 0)
         {
           (*I)->accept(*this);
           val = V;
@@ -305,6 +299,7 @@ namespace
 
             break;
           }
+          count_exprs--;
         }
       }
       if (count_bes + 1 == count_exprs && !flag_has_been_true)
