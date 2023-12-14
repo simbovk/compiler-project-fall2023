@@ -211,7 +211,7 @@ namespace
     {
       for (auto I = Node.begin(), E = Node.end(); I != E; ++I)
       {
-        if (I)
+        if (*I)
         {
           Assignment *casted_I = (Assignment *)I;
           casted_I->accept(*this);
@@ -221,22 +221,41 @@ namespace
 
     virtual void visit(Loop &Node) override
     {
+      llvm::BasicBlock* WhileCondBB = llvm::BasicBlock::Create(M->getContext(), "loopc.cond", MainFn);
+      llvm::BasicBlock* WhileBodyBB = llvm::BasicBlock::Create(M->getContext(), "loopc.body", MainFn);
+      llvm::BasicBlock* AfterWhileBB = llvm::BasicBlock::Create(M->getContext(), "after.loopc", MainFn);
 
-      // Our code
-      Value *val = nullptr;
+      Builder.CreateBr(WhileCondBB);
+      Builder.SetInsertPoint(WhileCondBB);
+      Node.getExpr()->accept(*this);
+      Value* val=V;
+      Builder.CreateCondBr(val, WhileBodyBB, AfterWhileBB);
+      Builder.SetInsertPoint(WhileBodyBB);
       BE *be = (BE *)Node.getBE();
-      if (Node.getExpr())
-      {
-        Node.getExpr()->accept(*this);
-        val = V;
-        // llvm::errs() << "val : " << *val << '\n';
-        while (val)
-        {
-          be->accept(*this);
-          llvm::errs() << ((Factor *)Node.getExpr())->getVal() << " " << *val << '\n';
-          // Node.getExpr().
-        }
-      }
+      (*be)->accept(*this);
+      // llvm::SmallVector<Assignment* > assignments = Node.getAssignments();
+      // for (auto I = assignments.begin(), E = assignments.end(); I != E; ++I){
+      //   (*I)->accept(*this);
+      // }
+
+      Builder.CreateBr(WhileCondBB);
+      Builder.SetInsertPoint(AfterWhileBB);
+      // // Our code
+      // Value *val = nullptr;
+      // BE *be = (BE *)Node.getBE();
+      // if (Node.getExpr())
+      // {
+      //   Node.getExpr()->accept(*this);
+      //   val = V;
+      //   // llvm::errs() << "val : " << *val << '\n';
+      //   while (val)
+      //   {
+      //     be->accept(*this);
+      //     llvm::errs() << ((Factor *)Node.getExpr())->getVal() << " " << *val << '\n';
+      //     // Node.getExpr().
+      //   }
+      // }
+
     };
 
     virtual void visit(Condition &Node) override
