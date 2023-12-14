@@ -282,8 +282,8 @@ namespace
           ifBodyBB = llvm::BasicBlock::Create(M -> getContext(), "if.Body", MainFn);
           hasIf = false;
 
-          for (auto E = bes_I.begin(), E = bes_I.end(); I != E; ++I){
-            (*E)->accept(*this);
+          for (auto F = bes_I->begin(), G = bes_I->end(); I != E; ++I){
+            (*F)->accept(*this);
           }
     
         }
