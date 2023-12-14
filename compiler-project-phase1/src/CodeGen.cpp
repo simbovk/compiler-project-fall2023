@@ -281,7 +281,7 @@ namespace
       for (auto I = Node.exprs_begin(), E = Node.exprs_begin(), bes_I = Node.bes_begin(), bes_E = Node.bes_end(); I != E; ++I, ++bes_I)
       {
 
-        if (I != nullptr)
+        if (*I != nullptr)
         {
           llvm::errs() << "goh2" << '\n';
           (*I)->accept(*this);
