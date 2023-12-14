@@ -233,7 +233,7 @@ namespace
         while (val)
         {
           be->accept(*this);
-          llvm::errs() << ((Factor *)Node.getExpr())->getVal() << " " << {val} << '\n';
+          llvm::errs() << ((Factor *)Node.getExpr())->getVal() << " " << *val << '\n';
           // Node.getExpr().
         }
       }
