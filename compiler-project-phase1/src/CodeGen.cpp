@@ -296,7 +296,7 @@ namespace
         auto bese = Node.bes_end();
         (*bese)->accept(*this);
       }
-      if(endOfCondition)
+      // if(endOfCondition)
     };
   };
 }; // namespace
