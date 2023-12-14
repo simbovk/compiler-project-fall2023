@@ -193,6 +193,7 @@ namespace
 
         if (*e_I) // star or not ? 
         {
+          llvm::errs() << "fantastic" << '\n';
           (* e_I)->accept(*this);
 
           val = V;
