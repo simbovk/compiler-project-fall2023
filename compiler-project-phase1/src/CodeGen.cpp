@@ -234,8 +234,8 @@ namespace
       Builder.CreateCondBr(val, WhileBodyBB, AfterWhileBB);
       Builder.SetInsertPoint(WhileBodyBB);
       BE *be = (BE *)Node.getBE();
-      (be)->accept(*this);
-      // llvm::SmallVector<Assignment* > assignments = Node.getAssignments();
+      // (be)->accept(*this);
+      // llvm::SmallVector<Assignment* >  = Node.getAssignments();
       // for (auto I = assignments.begin(), E = assignments.end(); I != E; ++I){
       //   (*I)->accept(*this);
       // }
@@ -291,6 +291,7 @@ namespace
             if (bes_I)
             {
               (*bes_I)->accept(*this);
+              llvm::errs() << "goh" << "\n";
             }
 
             break;
