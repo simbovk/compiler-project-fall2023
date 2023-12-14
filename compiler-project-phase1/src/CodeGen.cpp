@@ -190,10 +190,12 @@ namespace
         Value *val = nullptr;
         // Create an alloca instruction to allocate memory for the variable.
         nameMap[Var] = Builder.CreateAlloca(Int32Ty);
-
-        if (*e_I) // star or not ? 
+        if (e_I) // star or not ? 
         {
-          llvm::errs() << "fantastic" << '\n';
+          Factor *f = (Factor *)e_I;
+          int temp;
+          f->getVal().getAsInteger(10, temp); 
+          llvm::errs() << "fantastic" << temp << '\n';
           (* e_I)->accept(*this);
 
           val = V;
