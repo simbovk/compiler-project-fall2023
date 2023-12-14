@@ -42,7 +42,7 @@ class Parser
 
     AST *parseGoal();
     Expr *parseDec();
-    Expr *parseAssign();
+    Assignment *parseAssign();
     Expr *parseExpr();
     Expr *parseExpr1();
     Expr *parseExpr2();
