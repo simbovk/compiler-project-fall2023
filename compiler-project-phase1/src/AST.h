@@ -243,9 +243,9 @@ public:
 
     ExprVector::const_iterator exprs_end() { return exprs.end(); }
 
-    BEVector::const_iterator bes_begin() { return bes.begin(); }
+    BE* bes_begin() { return bes.begin(); }
 
-    BEVector::const_iterator bes_end() { return bes.end(); }
+    BE* bes_end() { return bes.end(); }
 
     virtual void accept(ASTVisitor &V) override
     {
