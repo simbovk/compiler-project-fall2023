@@ -159,6 +159,7 @@ Expr *Parser::parseCondition()
 
     if (E)
     {
+        llvm::errs() << "expression added\n";
         exprs.push_back(E);
     }
     else
@@ -172,6 +173,7 @@ Expr *Parser::parseCondition()
 
     if (B)
     {
+        llvm::errs() << "if be\n";
         bes.push_back(B);
     }
     else
@@ -183,6 +185,7 @@ Expr *Parser::parseCondition()
         E = parseExpr();
         if (E)
         {
+            llvm::errs() << "expression added\n";
             exprs.push_back(E);
         }
         else
@@ -195,6 +198,7 @@ Expr *Parser::parseCondition()
         B = (BE *)(parseBE());
         if (B)
         {
+            llvm::errs() << "elif be\n";
             bes.push_back(B);
         }
         else
@@ -203,6 +207,7 @@ Expr *Parser::parseCondition()
 
     if (Tok.is(Token::KW_else))
     {
+        llvm::errs() << "goto else\n";
         advance();
         if (expect(Token::colon))
             goto _error3; // error() or error3 idk :}
@@ -210,6 +215,7 @@ Expr *Parser::parseCondition()
         B = (BE *)parseBE();
         if (B)
         {
+        llvm::errs() << "else be\n";
             bes.push_back(B);
         }
         else goto _error3;
@@ -441,6 +447,7 @@ Expr *Parser::parseBE()
         //llvm::errs() << f->getVal() << " " << t->getVal();
         if (E)
         {
+            llvm::errs() << "new expression\n";
             assigns.push_back(E);
         }
         else
