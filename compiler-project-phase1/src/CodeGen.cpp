@@ -288,6 +288,7 @@ namespace
           flag_has_been_true = true;
           if (val)
           {
+            llvm::errs() << "goh1" << '\n'; 
             if (bes_I)
             {
               (*bes_I)->accept(*this);
