@@ -278,10 +278,12 @@ namespace
       BE* bes_I = *(Node.getAllBes().begin()), *bes_E = *(Node.getAllBes().end());
 
       llvm::errs() << "counts: " << count_bes << count_exprs << '\n';
-      
-      for (auto I = Node.exprs_begin(), E = Node.exprs_end(); I != E; ++I, ++bes_I)
+      auto E_E = Node.exprs_end();
+      E_E++; 
+      for (auto I = Node.exprs_begin(), E = Node.exprs_end(); I != E_E; ++I, ++bes_I)
       {
-          llvm::errs() << "for\n";
+        
+        llvm::errs() << "for\n";
 
         
         if (hasIf)
