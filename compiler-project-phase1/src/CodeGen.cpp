@@ -337,7 +337,7 @@ namespace
           }
         }
         else{ //else body
-        lvm::errs() << "else20\n";
+        llvm::errs() << "else20\n";
           Builder.SetInsertPoint(ifcondBB);
 
         }
