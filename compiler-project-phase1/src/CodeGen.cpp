@@ -239,7 +239,7 @@ namespace
       Value* val=V;
       Builder.CreateCondBr(val, WhileBodyBB, AfterWhileBB);
       Builder.SetInsertPoint(WhileBodyBB);
-      BE *be = (BE *)Node.getBE();
+      BE be = Node.getBE();
       
       for (auto I = be.begin(), E = be.end(); I != E; ++I){
         (*I)->accept(*this);
