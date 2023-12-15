@@ -242,15 +242,9 @@ private:
 public:
     Condition(llvm::SmallVector<Expr *> exprs, llvm::SmallVector<BE *> bes) : exprs(exprs), bes(bes) {}
 
-    ExprVector::const_iterator exprs_begin() { return exprs.begin(); }
-
-    ExprVector::const_iterator exprs_end() { return exprs.end(); }
-
     llvm::SmallVector<BE *> getAllBes() { return bes; }
 
-    BEVector::const_iterator bes_begin() { return bes.begin(); }
-
-    BEVector::const_iterator bes_end() { return bes.end(); }
+    llvm::SmallVector<Expr *> getAllExpresions() { return exprs; }
 
     virtual void accept(ASTVisitor &V) override
     {

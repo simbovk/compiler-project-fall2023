@@ -20,6 +20,8 @@ namespace
     Constant *Int32Zero;
     Function *MainFn;
     FunctionType *MainFty;
+    FunctionType *CalcWriteFnTy;
+    Function *CalcWriteFn;
 
     Value *V;
     StringMap<AllocaInst *> nameMap;
@@ -34,6 +36,9 @@ namespace
       Int8PtrTy = Type::getInt8PtrTy(M->getContext());
       Int8PtrPtrTy = Int8PtrTy->getPointerTo();
       Int32Zero = ConstantInt::get(Int32Ty, 0, true);
+
+      CalcWriteFnTy = FunctionType::get(VoidTy, {Int32Ty}, false);
+      CalcWriteFn = Function::Create(CalcWriteFnTy, GlobalValue::ExternalLinkage, "gsm_write", M);
     }
 
     // Entry point for generating LLVM IR from the AST.
@@ -75,12 +80,6 @@ namespace
 
       // Create a store instruction to assign the value to the variable.
       Builder.CreateStore(val, nameMap[varName]);
-
-      // Create a function type for the "gsm_write" function.
-      FunctionType *CalcWriteFnTy = FunctionType::get(VoidTy, {Int32Ty}, false);
-
-      // Create a function declaration for the "gsm_write" function.
-      Function *CalcWriteFn = Function::Create(CalcWriteFnTy, GlobalValue::ExternalLinkage, "gsm_write", M);
 
       // Create a call instruction to invoke the "gsm_write" function with the value.
       CallInst *Call = Builder.CreateCall(CalcWriteFnTy, CalcWriteFn, {val});
@@ -262,31 +261,28 @@ namespace
       bool endOfCondition = false;
       llvm::BasicBlock* ifcondBB;
       llvm::BasicBlock* ifBodyBB;
-      llvm::BasicBlock* afterIfConditionBB = llvm::BasicBlock::Create(M -> getContext(), "after", MainFn);;
+      llvm::BasicBlock* afterIfConditionBB = llvm::BasicBlock::Create(M -> getContext(), "after", MainFn);
 
-      for (auto I = Node.exprs_begin(), E = Node.exprs_end(); I != E; ++I)
+      llvm::SmallVector<BE *> bes = Node.getAllBes();
+      llvm::SmallVector<Expr *> exprs = Node.getAllExpresions();
+
+      for (auto I = exprs.begin(), E = exprs.end(); I != E; ++I)
       {
         count_exprs++;
       }
-      for (auto I = Node.bes_begin(), E = Node.bes_end(); I != E; ++I)
+      for (auto I = bes.begin(), E = bes.end(); I != E; ++I)
       {
         count_bes++;
       }
       bool hasElse = (count_bes - count_exprs)  == 1;
 
 
-      BE* bes_I = *(Node.getAllBes().begin()), *bes_E = *(Node.getAllBes().end());
-      BE* bes_I_tmp = *(Node.getAllBes().begin());
-      bes_I_tmp++;
+      auto bes_I = bes.begin();
+      auto E_End = exprs.end();
+      if (hasElse) E_End++;
 
-      llvm::errs() << "counts: " << count_bes << count_exprs << '\n';
-      auto E_E = Node.exprs_end();
-      E_E++; 
-      for (auto I = Node.exprs_begin(), E = Node.exprs_end(); I != E_E; ++I)
+      for (auto I = exprs.begin(), E = exprs.end(); I != E_End; ++I)
       {
-        
-        llvm::errs() << "for\n";
-
         
         if (hasIf)
         {
@@ -301,14 +297,12 @@ namespace
             ifcondBB = llvm::BasicBlock::Create(M -> getContext(), "else.body", MainFn);
             Builder.CreateCondBr(val, ifBodyBB, ifcondBB);
             Builder.SetInsertPoint(ifBodyBB);
-            llvm::errs() << "else32\n";
           }
           else if(count_exprs > 1){ // next is elif
             ifcondBB = llvm::BasicBlock::Create(M -> getContext(), "elif.condition", MainFn);
             Builder.CreateCondBr(val, ifBodyBB, ifcondBB);
             Builder.SetInsertPoint(ifBodyBB);
           } else{
-            llvm::errs() << "else30\n";
             Builder.CreateCondBr(val, ifBodyBB, afterIfConditionBB);
             Builder.SetInsertPoint(ifBodyBB);
 
@@ -318,48 +312,35 @@ namespace
 
    
         } else if(count_exprs > 0){
-          llvm::errs() << "elif\n";
-          Builder.CreateBr(ifcondBB);
+          // Builder.CreateBr(ifcondBB);
           Builder.SetInsertPoint(ifcondBB);
           (*I)->accept(*this);
-          llvm::errs() << "elif2\n";
 
           val = V;
           ifBodyBB = llvm::BasicBlock::Create(M -> getContext(), "elif.body", MainFn);
-          ifcondBB = llvm::BasicBlock::Create(M -> getContext(), "elif.condition", MainFn);
-          llvm::errs() << "elif3\n";
           if(hasElse && count_exprs == 1){ // next is else
             ifcondBB = llvm::BasicBlock::Create(M -> getContext(), "else.body", MainFn);
             Builder.CreateCondBr(val, ifBodyBB, ifcondBB);
             Builder.SetInsertPoint(ifBodyBB);
-            llvm::errs() << "else31\n";
           } else if(count_exprs > 1){ // next is elif
             ifcondBB = llvm::BasicBlock::Create(M -> getContext(), "elif.condition", MainFn);
             Builder.CreateCondBr(val, ifBodyBB, ifcondBB);
             Builder.SetInsertPoint(ifBodyBB);
           } else{
-          llvm::errs() << "else\n";
             Builder.CreateCondBr(val, ifBodyBB, afterIfConditionBB);
-          llvm::errs() << "else2\n";
             Builder.SetInsertPoint(ifBodyBB);
           }
         }
         else{ //else body
-        llvm::errs() << "else20\n";
           Builder.SetInsertPoint(ifcondBB);
 
         }
 
-          llvm::errs() << "else3\n";
         // (*(bes_I_tmp -> getAssigns().begin())) -> accept(*this);
-        for (auto F = bes_I->getAssigns().begin(), G = bes_I->getAssigns().end(); G != F; ++F){
-          llvm::errs() << "for2\n";
+        for (auto F = (*bes_I)->begin(), G = (*bes_I)->end(); G != F; ++F){
           (*F)->accept(*this);
-          llvm::errs() << "for2 next\n";
         }
-        llvm::errs() << "end of for\n";
         Builder.CreateBr(afterIfConditionBB);
-        llvm::errs() << "salam\n";
         count_exprs--;
         bes_I++;
       }
