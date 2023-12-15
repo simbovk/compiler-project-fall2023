@@ -1,0 +1,27 @@
+Goal -> (Dec | Assign | Condition | Loop)* 
+
+Loop -> "loopc" expr":" BE
+
+Dec -> "int" ident ("," ident)* ("=" (expr))? ";"
+
+Condition -> "if" expr ":" BE ("elif" expr":" BE)* ("else"":" BE)?
+
+BE -> "begin" (Assign)* "end"
+
+
+
+Assign -> ident ("=" | "+=" | "-=" | "%=" | "*=" | "/=") expr ";"
+
+expr -> expr1 ("or" expr1)* 
+expr1 -> expr2 ("and" expr2)*
+expr2 -> expr3 (( "==" | "!=") expr3)* 
+expr3 -> expr4 ((">=" | "<=") expr4)*
+expr4 -> expr5 ((">" | "<" ) expr5)*
+expr5 -> expr6 (( "+" | "-") expr6)*
+expr6 -> term (( "*" | "/" | "%") term)*
+term -> factor ("^" factor)*
+factor -> ident | number | "(" expr ")"
+
+ident -> ([a-zA-Z])+
+
+number -> ([0-9])+
