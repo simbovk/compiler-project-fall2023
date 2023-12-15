@@ -1,6 +1,6 @@
 # Compiler project (Spring 2023)
 
-A simple compiler project based on llvm. You can find the report [here](https://docs.google.com/document/d/1TWK8OBcipAsg7OCwES159OGB6n_YrkhiAePXsfZPveU/edit?usp=sharing)
+A simple compiler project based on llvm.
 
 ## How to run?
 ```
