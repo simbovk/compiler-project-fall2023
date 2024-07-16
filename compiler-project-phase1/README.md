@@ -1,4 +1,4 @@
-# Compiler project (Spring 2023)
+# Compiler project (FAll 2023)
 
 A simple compiler project based on llvm.
 
